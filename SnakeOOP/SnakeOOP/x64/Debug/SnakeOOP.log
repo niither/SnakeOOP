@@ -1,0 +1,5 @@
+﻿  SnakeOOP.cpp
+C:\Users\user\Desktop\STEP\cpp\SnakeOOP\Header.h(104,51): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'SnakeOOP.cpp')
+  
+  SnakeOOP.vcxproj -> C:\Users\user\Desktop\STEP\cpp\SnakeOOP\x64\Debug\SnakeOOP.exe
