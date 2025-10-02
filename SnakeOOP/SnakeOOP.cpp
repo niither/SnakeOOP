@@ -11,11 +11,11 @@ Snake::Snake(int startX, int startY, int startLength)
 
 void Snake::move() {
     for (int i = this->body.size() - 1; i > 0; i--) {
-        this->body[i] = this->body[i - 1];
+        this->body[i] = this->body[i - 1]; // Move body part to the previous
     }
 
-    Point head = this->body[0];
-    switch (this->direction) {
+    Point head = this->body[0]; // Head is always the first (0th) part of snake
+    switch (this->direction) { // Change in head's (and snake's) direction
     case UP:
         head.setY(head.getY() - 1);
         break;
@@ -34,7 +34,7 @@ void Snake::move() {
 
 void Snake::grow() {
     Point tail = this->body.back();
-    this->body.push_back(tail);
+    this->body.push_back(tail); // Creates new body element at the back
 }
 
 void Snake::changeDirection(int newDir) {
@@ -76,13 +76,11 @@ GameMap::GameMap(int w, int h) : width(w), height(h) {
     this->initializeGrid();
 }
 
-GameMap::~GameMap() {}
-
 void GameMap::initializeGrid() {
-    this->grid.resize(this->height, vector<int>(this->width));
+    this->grid.resize(this->height, vector<int>(this->width)); // Change grid size from 0 {} to game's size
     for (int i = 0; i < this->height; i++) {
         for (int j = 0; j < this->width; j++) {
-            if (i == 0 || j == 0 || i == this->height - 1 || j == this->width - 1) {
+            if (i == 0 || j == 0 || i == this->height - 1 || j == this->width - 1) { // Place walls around the grid
                 this->grid[i][j] = WALL;
             }
             else {

@@ -49,7 +49,6 @@ public:
     GameObject(int x, int y, char symbol, Color col)
         : position(x, y), symbol(symbol), color(col) {
     }
-    virtual ~GameObject() {}
 
     virtual void draw(HANDLE h) const {
         SetConsoleTextAttribute(h, this->color);
@@ -71,12 +70,12 @@ public:
     }
 };
 
-class Food : public GameObject {
+class Food : public GameObject { // Inheritance example
 public:
     Food() : GameObject(0, 0, '*', LIGHTRED) {}
     Food(int x, int y) : GameObject(x, y, '*', LIGHTRED) {}
 
-    void draw(HANDLE h) const override {
+    void draw(HANDLE h) const override { // Polymorphism example
         GameObject::draw(h);
     }
 };
@@ -124,12 +123,11 @@ public:
 class GameMap {
     int width;
     int height;
-    vector<vector<int>> grid;
+    vector<vector<int>> grid; // 2D vector for map
 
     void initializeGrid();
 public:
     GameMap(int w, int h);
-    ~GameMap();
 
     int getWidth() const {
         return this->width;
@@ -154,7 +152,6 @@ class ScoreManager {
     string filename;
 public:
     ScoreManager(const string& file) : filename(file) {}
-    ~ScoreManager() {}
 
     void saveScore(int score);
     int loadScore() const;
@@ -164,7 +161,6 @@ class Console {
     HANDLE handle;
 public:
     Console();
-    ~Console() {}
 
     void setup();
     void clear() const {
@@ -184,7 +180,6 @@ protected:
     Console* console;
 public:
     Menu(Console* con) : console(con) {}
-    virtual ~Menu() {}
     virtual int show() = 0;
 };
 
@@ -192,7 +187,6 @@ class MainMenu : public Menu {
     int bestScore;
 public:
     MainMenu(Console* con, int score) : Menu(con), bestScore(score) {}
-    ~MainMenu() {}
 
     int show() override;
     void setBestScore(int score) { this->bestScore = score; }
