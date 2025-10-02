@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <ctime>
 
 using namespace std;
 
@@ -90,7 +89,6 @@ public:
 
 // Snake class (player)
 class Snake {
-private:
     vector<Point> body;
     int direction;
     char headSymbol;
@@ -124,14 +122,11 @@ public:
 };
 
 class GameMap {
-private:
     int width;
     int height;
-    int** grid;
-    vector<Wall> walls;
+    vector<vector<int>> grid;
 
     void initializeGrid();
-    void deleteGrid();
 public:
     GameMap(int w, int h);
     ~GameMap();
@@ -156,7 +151,6 @@ public:
 
 // File manager for saving and loading score
 class ScoreManager {
-private:
     string filename;
 public:
     ScoreManager(const string& file) : filename(file) {}
@@ -167,7 +161,6 @@ public:
 };
 
 class Console {
-private:
     HANDLE handle;
 public:
     Console();
@@ -196,7 +189,6 @@ public:
 };
 
 class MainMenu : public Menu {
-private:
     int bestScore;
 public:
     MainMenu(Console* con, int score) : Menu(con), bestScore(score) {}
@@ -207,7 +199,6 @@ public:
 };
 
 class Game {
-private:
     Console* console;
     GameMap* map;
     Snake* snake;

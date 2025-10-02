@@ -10,7 +10,7 @@ Snake::Snake(int startX, int startY, int startLength)
 }
 
 void Snake::move() {
-    for (size_t i = this->body.size() - 1; i > 0; i--) {
+    for (int i = this->body.size() - 1; i > 0; i--) {
         this->body[i] = this->body[i - 1];
     }
 
@@ -48,7 +48,7 @@ void Snake::changeDirection(int newDir) {
 
 bool Snake::checkSelfCollision() const {
     Point head = this->body[0];
-    for (size_t i = 1; i < this->body.size(); i++) {
+    for (int i = 1; i < this->body.size(); i++) {
         if (head.isEqual(this->body[i])) {
             return true;
         }
@@ -66,28 +66,24 @@ bool Snake::checkCollision(const Point& point) const {
 }
 
 void Snake::draw(HANDLE h) const {
-    for (size_t i = 0; i < this->body.size(); i++) {
+    for (int i = 0; i < this->body.size(); i++) {
         SetConsoleTextAttribute(h, this->color);
         cout << (i == 0 ? this->headSymbol : this->bodySymbol);
     }
 }
 
-GameMap::GameMap(int w, int h) : width(w), height(h), grid(nullptr) {
+GameMap::GameMap(int w, int h) : width(w), height(h) {
     this->initializeGrid();
 }
 
-GameMap::~GameMap() {
-    this->deleteGrid();
-}
+GameMap::~GameMap() {}
 
 void GameMap::initializeGrid() {
-    this->grid = new int* [this->height];
+    this->grid.resize(this->height, vector<int>(this->width));
     for (int i = 0; i < this->height; i++) {
-        this->grid[i] = new int[this->width];
         for (int j = 0; j < this->width; j++) {
             if (i == 0 || j == 0 || i == this->height - 1 || j == this->width - 1) {
                 this->grid[i][j] = WALL;
-                this->walls.push_back(Wall(j, i));
             }
             else {
                 this->grid[i][j] = HALL;
@@ -96,20 +92,9 @@ void GameMap::initializeGrid() {
     }
 }
 
-void GameMap::deleteGrid() {
-    if (this->grid != nullptr) {
-        for (int i = 0; i < this->height; i++) {
-            delete[] this->grid[i];
-        }
-        delete[] this->grid;
-        this->grid = nullptr;
-    }
-}
-
 void GameMap::addWall(int x, int y) {
     if (this->isFree(x, y)) {
         this->grid[y][x] = WALL;
-        this->walls.push_back(Wall(x, y));
     }
 }
 
@@ -129,7 +114,7 @@ void GameMap::draw(HANDLE h, const Snake& snake, const Food& food) const {
             }
             else {
                 const vector<Point>& body = snake.getBody();
-                for (size_t i = 0; i < body.size(); i++) {
+                for (int i = 0; i < body.size(); i++) {
                     if (body[i].isEqual(current)) {
                         SetConsoleTextAttribute(h, LIGHTGREEN);
                         cout << (i == 0 ? 'O' : 'o');
@@ -306,7 +291,7 @@ void Game::initialize(int diff) {
 }
 
 void Game::generateFood() {
-    srand((unsigned int)time(0));
+    srand(time(0));
     int x, y;
     do {
         x = rand() % (this->map->getWidth() - 2) + 1;
@@ -324,8 +309,8 @@ void Game::generateFood() {
 void Game::generateWall() {
     int x, y;
     do {
-        x = rand() % (this->map->getWidth() - 2) + 1;
-        y = rand() % (this->map->getHeight() - 2) + 1;
+        x = rand() % (this->map->getWidth() - 1);
+        y = rand() % (this->map->getHeight() - 1);
     } while (!this->map->isFree(x, y) || this->snake->checkCollision(Point(x, y)));
 
     this->map->addWall(x, y);

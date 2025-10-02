@@ -1,5 +1,7 @@
 ﻿  SnakeOOP.cpp
-C:\Users\user\Desktop\STEP\cpp\SnakeOOP\Header.h(104,51): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\STEP\cpp\SnakeOOP\Header.h(112,31): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'SnakeOOP.cpp')
   
+C:\Users\user\Desktop\STEP\cpp\SnakeOOP\SnakeOOP.cpp(13,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\user\Desktop\STEP\cpp\SnakeOOP\SnakeOOP.cpp(294,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   SnakeOOP.vcxproj -> C:\Users\user\Desktop\STEP\cpp\SnakeOOP\x64\Debug\SnakeOOP.exe
